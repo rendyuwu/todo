@@ -2,6 +2,14 @@
 
 A modern, full-stack TODO application built with Node.js, Express.js, MySQL, and Tailwind CSS. This application implements complete CRUD functionality for managing todo items with a clean, responsive user interface.
 
+## ✅ CSP Issue Fixed!
+
+**Important Update**: The application previously had issues with button functionality (Edit, Delete, Done) due to Content Security Policy (CSP) violations. This has been fixed by removing inline event handlers and implementing proper event delegation. See [CSP Fix Documentation](docs/CSP_FIX.md) for details.
+
+## ✅ Enhanced User Experience with SweetAlert2
+
+**New Feature**: The application now uses SweetAlert2 for beautiful, customizable confirmation dialogs instead of basic browser alerts. This enhances the user experience with modern, professional-looking dialogs.
+
 ## Features
 
 - **Full CRUD Operations**: Create, Read, Update, Delete todo items
@@ -12,6 +20,8 @@ A modern, full-stack TODO application built with Node.js, Express.js, MySQL, and
 - **Input Validation**: Comprehensive validation for all user inputs
 - **Error Handling**: Graceful error handling and user feedback
 - **Modern JavaScript**: ES6+ syntax throughout the codebase
+- **CSP Compliant**: No inline event handlers, uses event delegation
+- **Enhanced UX**: SweetAlert2 for beautiful confirmation dialogs
 
 ## Technology Stack
 
@@ -20,6 +30,7 @@ A modern, full-stack TODO application built with Node.js, Express.js, MySQL, and
 - **Database**: MySQL
 - **ORM/Migration**: Knex.js
 - **Styling**: Tailwind CSS
+- **Confirmation Dialogs**: SweetAlert2
 - **Environment Management**: dotenv
 
 ## Project Structure
@@ -114,6 +125,9 @@ todo-app/
 - `npm run migrate` - Run database migrations
 - `npm run migrate:rollback` - Rollback the last migration
 - `npm run migrate:make <name>` - Create a new migration file
+- `npm test` - Run all tests
+- `npm run test:csp` - Test CSP fix implementation
+- `npm run test:sweetalert` - Test SweetAlert2 implementation
 
 ## API Endpoints
 
@@ -224,6 +238,18 @@ Run the test suite with:
 
 ```bash
 npm test
+```
+
+Test the CSP fix with:
+
+```bash
+npm run test:csp
+```
+
+Test SweetAlert2 implementation with:
+
+```bash
+npm run test:sweetalert
 ```
 
 ## Contributing

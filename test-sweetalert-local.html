@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test SweetAlert2 Local Implementation</title>
+    <!-- SweetAlert2 local -->
+    <link rel="stylesheet" href="/css/sweetalert2.min.css" />
+    <script src="/js/sweetalert2.all.min.js"></script>
+  </head>
+  <body>
+    <h1>Test SweetAlert2 Local Implementation</h1>
+    <button id="testBtn">Show SweetAlert2 Dialog</button>
+
+    <script>
+      document.getElementById("testBtn").addEventListener("click", function () {
+        if (typeof Swal !== "undefined") {
+          Swal.fire({
+            title: "Success!",
+            text: "SweetAlert2 is working correctly with local files",
+            icon: "success",
+            confirmButtonText: "OK",
+          });
+        } else {
+          alert("SweetAlert2 is not available");
+        }
+      });
+    </script>
+  </body>
+</html>

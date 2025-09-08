@@ -12,6 +12,9 @@
         "test": "mocha tests/**/*.test.js --timeout 10000",
         "test:api": "mocha tests/api.test.js --timeout 10000",
         "test:db": "node scripts/test-database.js",
+        "test:app": "node test-app.js",
+        "test:csp": "node test-csp-fix.js",
+        "test:sweetalert": "node test-sweetalert.js",
         "setup": "node scripts/setup.js"
     },
     "keywords": [

@@ -4,7 +4,7 @@
   "description": "A modern full-stack TODO application with Node.js, Express.js, MySQL, and Tailwind CSS",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "npm install --production && node server.js",
     "dev": "nodemon server.js",
     "dev:both": "concurrently \"npm run dev\" \"npm run start:client\"",
     "start:client": "react-scripts start",

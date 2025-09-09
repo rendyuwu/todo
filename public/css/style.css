@@ -1,0 +1,296 @@
+/* Custom styles for the TODO app */
+
+/* Toast messages */
+.toast-message {
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Todo item animations */
+.todo-item {
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    .todo-item .flex.items-center {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .todo-item .flex.space-x-2 {
+        margin-top: 1rem;
+        margin-left: 0;
+    }
+    
+    .grid.grid-cols-1.md\:grid-cols-2 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Loading spinner */
+.fa-spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Focus states for accessibility */
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+/* Smooth transitions */
+.transition-all {
+    transition-property: all;
+    transition-duration: 150ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Priority badge sizes */
+.px-2\.5.py-0\.5 {
+    padding-left: 0.625rem;
+    padding-right: 0.625rem;
+    padding-top: 0.125rem;
+    padding-bottom: 0.125rem;
+}
+
+/* Status badge sizes */
+.px-2\.5.py-0\.5 {
+    padding-left: 0.625rem;
+    padding-right: 0.625rem;
+    padding-top: 0.125rem;
+    padding-bottom: 0.125rem;
+}
+
+/* Fallback styles for when Tailwind CSS is not available */
+.no-tailwind {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.no-tailwind .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.no-tailwind .bg-white {
+    background-color: #ffffff;
+}
+
+.no-tailwind .bg-gray-100 {
+    background-color: #f3f4f6;
+}
+
+.no-tailwind .text-center {
+    text-align: center;
+}
+
+.no-tailwind .mb-12 {
+    margin-bottom: 3rem;
+}
+
+.no-tailwind .text-4xl {
+    font-size: 2.25rem;
+}
+
+.no-tailwind .font-bold {
+    font-weight: 700;
+}
+
+.no-tailwind .text-gray-800 {
+    color: #1f2937;
+}
+
+.no-tailwind .text-gray-600 {
+    color: #4b5563;
+}
+
+.no-tailwind .rounded-lg {
+    border-radius: 0.5rem;
+}
+
+.no-tailwind .shadow-md {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.no-tailwind .p-6 {
+    padding: 1.5rem;
+}
+
+.no-tailwind .max-w-2xl {
+    max-width: 42rem;
+}
+
+.no-tailwind .mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.no-tailwind .text-2xl {
+    font-size: 1.5rem;
+}
+
+.no-tailwind .font-semibold {
+    font-weight: 600;
+}
+
+.no-tailwind .space-y-4 > * + * {
+    margin-top: 1rem;
+}
+
+.no-tailwind .block {
+    display: block;
+}
+
+.no-tailwind .text-sm {
+    font-size: 0.875rem;
+}
+
+.no-tailwind .font-medium {
+    font-weight: 500;
+}
+
+.no-tailwind .text-gray-700 {
+    color: #374151;
+}
+
+.no-tailwind .mb-1 {
+    margin-bottom: 0.25rem;
+}
+
+.no-tailwind .w-full {
+    width: 100%;
+}
+
+.no-tailwind .px-3 {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+}
+
+.no-tailwind .py-2 {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.no-tailwind .border {
+    border-width: 1px;
+}
+
+.no-tailwind .border-gray-300 {
+    border-color: #d1d5db;
+}
+
+.no-tailwind .rounded-md {
+    border-radius: 0.375rem;
+}
+
+.no-tailwind .focus\:outline-none:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+}
+
+.no-tailwind .focus\:ring-2:focus {
+    --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+    --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+    box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
+.no-tailwind .focus\:ring-blue-500:focus {
+    --tw-ring-opacity: 1;
+    --tw-ring-color: rgb(59 130 246 / var(--tw-ring-opacity));
+}
+
+.no-tailwind .grid {
+    display: grid;
+}
+
+.no-tailwind .grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.no-tailwind .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.no-tailwind .gap-4 {
+    gap: 1rem;
+}
+
+.no-tailwind .w-full {
+    width: 100%;
+}
+
+.no-tailwind .bg-blue-600 {
+    background-color: #2563eb;
+}
+
+.no-tailwind .hover\:bg-blue-700:hover {
+    background-color: #1d4ed8;
+}
+
+.no-tailwind .text-white {
+    color: #ffffff;
+}
+
+.no-tailwind .py-2 {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.no-tailwind .px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.no-tailwind .rounded-md {
+    border-radius: 0.375rem;
+}
+
+.no-tailwind .transition {
+    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}
+
+.no-tailwind .duration-300 {
+    transition-duration: 300ms;
+}
+
+/* Hide fallback styles when Tailwind is available */
+.tailwind-available .no-tailwind {
+    display: none;
+}

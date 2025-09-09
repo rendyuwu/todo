@@ -2,12 +2,12 @@
 
 ## Project Overview
 
-A full-stack TODO application built with Node.js (both frontend and backend), MySQL database, and a responsive UI using Tailwind CSS. The application follows MCP context7 patterns for code organization and implements complete CRUD functionality for todo items.
+A full-stack TODO application built with Node.js (backend), React.js (frontend), MySQL database, and a responsive UI using Tailwind CSS. The application follows MCP context7 patterns for code organization and implements complete CRUD functionality for todo items.
 
 ## Technology Stack
 
 - **Backend**: Node.js with Express.js
-- **Frontend**: Node.js with Server-Side Rendering
+- **Frontend**: React.js with Tailwind CSS
 - **Database**: MySQL
 - **Styling**: Tailwind CSS
 - **Migration Tool**: Knex.js
@@ -26,13 +26,16 @@ todo-app/
 │   ├── config/
 │   ├── migrations/
 │   └── utils/
-├── frontend/
-│   ├── views/
-│   ├── public/
-│   │   ├── css/
-│   │   ├── js/
-│   │   └── assets/
-│   └── controllers/
+├── src/
+│   ├── components/
+│   ├── services/
+│   ├── App.js
+│   ├── App.css
+│   ├── index.js
+│   └── index.css
+├── public/
+│   └── index.html
+├── build/
 ├── database/
 │   └── migrations/
 ├── docs/
@@ -60,6 +63,7 @@ CREATE TABLE todos (
   title VARCHAR(255) NOT NULL,
   description TEXT,
   status ENUM('pending', 'in_progress', 'completed') DEFAULT 'pending',
+  priority ENUM('low', 'medium', 'high') DEFAULT 'medium',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -94,7 +98,7 @@ CREATE TABLE todos (
 
 ```mermaid
 graph TD
-    A[Client Browser] --> B[Node.js Frontend]
+    A[Client Browser] --> B[React.js Frontend]
     B --> C[Express.js Backend API]
     C --> D[MySQL Database]
     D --> C
@@ -114,9 +118,9 @@ graph TD
 
 ### Frontend Components
 
-1. **Views**: Server-side rendered pages
-2. **Public**: Static assets (CSS, JS, images)
-3. **Controllers**: Handle page rendering and form submissions
+1. **Components**: Reusable React components for UI elements
+2. **Services**: API service layer for backend communication
+3. **Public**: Static assets (HTML template)
 
 ## Migration Strategy
 
@@ -159,7 +163,7 @@ To implement this architecture, we'll need to:
 3. Configure environment files for development and staging
 4. Implement the database schema and migrations
 5. Build the Express.js backend with RESTful API endpoints
-6. Create the frontend with responsive UI using Tailwind CSS
+6. Create the React.js frontend with responsive UI using Tailwind CSS
 7. Implement full CRUD functionality for todos
 8. Add comprehensive error handling and validation
 9. Create documentation and prepare for deployment

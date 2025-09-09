@@ -18,7 +18,7 @@ const {
 } = require("./backend/middleware/errorHandler");
 
 // Import frontend controller
-const { serveIndexPage } = require("./frontend/controllers/pageController");
+const { serveIndexPage } = require("./backend/controllers/pageController");
 
 // Initialize express app
 const app = express();
@@ -31,14 +31,41 @@ app.use(morgan("combined")); // Logging
 app.use(express.json()); // Parse JSON bodies
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 
-// Serve static files from frontend/public
-app.use(express.static(path.join(__dirname, "frontend/public")));
-
 // Routes
 app.use("/api/todos", todoRoutes);
 
-// Serve the main page
-app.get("/", serveIndexPage);
+// Serve static files from React build directory first (for production)
+app.use(express.static(path.join(__dirname, "build"), { maxAge: "1d" }));
+
+// Serve static files from public (for development)
+app.use(express.static(path.join(__dirname, "public")));
+
+// API Info endpoint - only respond with JSON for API clients
+app.get(
+  "/",
+  (req, res, next) => {
+    // Check if the client is requesting JSON
+    const acceptHeader = req.get("Accept");
+    if (acceptHeader && acceptHeader.includes("application/json")) {
+      res.status(200).json({
+        success: true,
+        message: "Welcome to the Modern TODO API",
+        version: "1.0.0",
+        endpoints: {
+          todos: "/api/todos",
+          docs: "/api/docs",
+        },
+      });
+    } else {
+      // For browser requests, serve the React app
+      next();
+    }
+  },
+  serveIndexPage
+);
+
+// Serve the main page for all other routes (React Router)
+app.get("*", serveIndexPage);
 
 // Error handling middleware
 app.use(notFoundHandler); // 404 handler

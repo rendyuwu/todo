@@ -1,6 +1,6 @@
 # Modern Full-Stack TODO Application
 
-A modern, full-stack TODO application built with Node.js, Express.js, MySQL, and Tailwind CSS. This application implements complete CRUD functionality for managing todo items with a clean, responsive user interface.
+A modern, full-stack TODO application built with Node.js, Express.js, MySQL, and React. This application implements complete CRUD functionality for managing todo items with a clean, responsive user interface.
 
 ## ✅ CSP Issue Fixed!
 
@@ -22,11 +22,12 @@ A modern, full-stack TODO application built with Node.js, Express.js, MySQL, and
 - **Modern JavaScript**: ES6+ syntax throughout the codebase
 - **CSP Compliant**: No inline event handlers, uses event delegation
 - **Enhanced UX**: SweetAlert2 for beautiful confirmation dialogs
+- **React Frontend**: Modern React.js implementation with component-based architecture
 
 ## Technology Stack
 
 - **Backend**: Node.js with Express.js
-- **Frontend**: Server-side rendered HTML with JavaScript
+- **Frontend**: React.js with Tailwind CSS
 - **Database**: MySQL
 - **ORM/Migration**: Knex.js
 - **Styling**: Tailwind CSS
@@ -43,18 +44,21 @@ todo-app/
 │   ├── routes/
 │   ├── middleware/
 │   └── config/
-├── frontend/
-│   ├── views/
-│   ├── public/
-│   │   ├── css/
-│   │   ├── js/
-│   │   └── assets/
-│   └── controllers/
+├── src/
+│   ├── components/
+│   ├── services/
+│   ├── App.js
+│   ├── App.css
+│   ├── index.js
+│   └── index.css
+├── public/
+│   └── index.html
 ├── database/
 │   └── migrations/
 ├── config/
 │   ├── development.env
 │   └── staging.env
+├── build/
 ├── .env.example
 ├── knexfile.js
 ├── package.json
@@ -122,10 +126,14 @@ todo-app/
 
 - `npm start` - Start the production server
 - `npm run dev` - Start the development server with nodemon
+- `npm run dev:both` - Start both the server and React development server
+- `npm run start:client` - Start the React development server
+- `npm run build` - Build the React application for production
 - `npm run migrate` - Run database migrations
 - `npm run migrate:rollback` - Rollback the last migration
 - `npm run migrate:make <name>` - Create a new migration file
 - `npm test` - Run all tests
+- `npm run test:api` - Run API tests
 - `npm run test:csp` - Test CSP fix implementation
 - `npm run test:sweetalert` - Test SweetAlert2 implementation
 
@@ -150,6 +158,7 @@ todo-app/
   "title": "Sample Todo",
   "description": "This is a sample todo item",
   "status": "pending",
+  "priority": "medium",
   "created_at": "2023-01-01T00:00:00.000Z",
   "updated_at": "2023-01-01T00:00:00.000Z"
 }
@@ -189,6 +198,7 @@ DB_NAME=todo_app_staging
 | title       | VARCHAR(255) | NOT NULL                                              |
 | description | TEXT         | NULL                                                  |
 | status      | ENUM         | pending, in_progress, completed                       |
+| priority    | ENUM         | low, medium, high                                     |
 | created_at  | TIMESTAMP    | DEFAULT CURRENT_TIMESTAMP                             |
 | updated_at  | TIMESTAMP    | DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP |
 
@@ -200,9 +210,34 @@ DB_NAME=todo_app_staging
    npm run dev
    ```
 
-2. Access the application at `http://localhost:3000`
+2. In a separate terminal, start the React development server:
 
-3. Make changes to the code - nodemon will automatically restart the server
+   ```bash
+   npm run start:client
+   ```
+
+3. Or start both servers simultaneously:
+
+   ```bash
+   npm run dev:both
+   ```
+
+4. Access the application at `http://localhost:3000`
+
+## Building for Production
+
+1. Build the React application:
+
+   ```bash
+   npm run build
+   ```
+
+2. Start the production server:
+   ```bash
+   npm start
+   ```
+
+The production server will serve the built React application.
 
 ## Deployment
 
@@ -214,7 +249,11 @@ DB_NAME=todo_app_staging
    ```bash
    NODE_ENV=staging npm run migrate
    ```
-4. Start the server:
+4. Build the React application:
+   ```bash
+   npm run build
+   ```
+5. Start the server:
    ```bash
    NODE_ENV=staging npm start
    ```
@@ -227,7 +266,11 @@ DB_NAME=todo_app_staging
    ```bash
    NODE_ENV=production npm run migrate
    ```
-4. Start the server:
+4. Build the React application:
+   ```bash
+   npm run build
+   ```
+5. Start the server:
    ```bash
    NODE_ENV=production npm start
    ```
@@ -238,6 +281,12 @@ Run the test suite with:
 
 ```bash
 npm test
+```
+
+Run API tests with:
+
+```bash
+npm run test:api
 ```
 
 Test the CSP fix with:

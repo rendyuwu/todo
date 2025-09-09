@@ -4,122 +4,126 @@ This document describes the frontend architecture and implementation details for
 
 ## Overview
 
-The frontend is a server-side rendered HTML application with client-side JavaScript enhancements. It uses vanilla JavaScript with modern ES6+ features and Tailwind CSS for styling.
+The frontend is a React.js application with client-side rendering. It uses modern React patterns with functional components and hooks for state management, and Tailwind CSS for styling.
 
 ## Technologies Used
 
-- **HTML5** - Markup language
-- **CSS3** - Styling
+- **React.js** - JavaScript library for building user interfaces
+- **React Hooks** - State and lifecycle management
 - **Tailwind CSS** - Utility-first CSS framework
-- **Vanilla JavaScript (ES6+)** - Client-side interactivity
+- **Axios** - HTTP client for API requests
+- **SweetAlert2** - Beautiful alert dialogs
 - **Font Awesome** - Icons
-- **Fetch API** - AJAX requests
 
 ## File Structure
 
 ```
-frontend/
-├── views/
-│   └── index.html          # Main HTML template
-├── public/
-│   ├── css/
-│   │   └── style.css       # Custom CSS styles
-│   ├── js/
-│   │   └── main.js         # Main JavaScript file
-│   └── assets/             # Static assets (images, fonts, etc.)
-└── controllers/
-    └── pageController.js   # Server-side page controller
+src/
+├── components/
+│   ├── AddTodoForm.js      # Form for creating new todos
+│   ├── TodoList.js         # List of todos with filtering
+│   ├── TodoItem.js         # Individual todo item component
+│   ├── FilterButtons.js    # Status and priority filter buttons
+│   ├── EditTodoModal.js    # Modal for editing todos
+│   └── ToastNotification.js # Toast notification component
+├── services/
+│   └── todoService.js      # API service layer
+├── App.js                  # Main application component
+├── App.css                 # Application-specific styles
+├── index.js                # Entry point
+└── index.css               # Global styles
+public/
+└── index.html              # HTML template
 ```
 
-## HTML Structure
+## React Component Architecture
 
-The main HTML file (`frontend/views/index.html`) contains:
+The application follows a component-based architecture with the following main components:
 
-1. **Document Head**
+### App Component
 
-   - Meta tags for responsiveness and SEO
-   - Tailwind CSS CDN link
-   - Font Awesome CDN link
-   - Custom CSS link
+The main application component that:
 
-2. **Header Section**
+- Manages global state (todos, filters, loading states)
+- Handles data fetching from the API
+- Renders the main layout and child components
 
-   - Application title and description
+### AddTodoForm Component
 
-3. **Main Content**
+Features:
 
-   - Todo creation form
-   - Todo list display area
-   - Filter controls
+- Controlled form inputs using React state
+- Form validation
+- Submission handling
+- Loading states
 
-4. **Modal Dialogs**
+### TodoList Component
 
-   - Edit todo modal
+Displays a list of todos with:
 
-5. **Footer**
-   - Copyright information
+- Filtering by status and priority
+- Empty state handling
+- Rendering of individual TodoItem components
 
-## JavaScript Architecture
+### TodoItem Component
 
-The main JavaScript file (`frontend/public/js/main.js`) follows a modular approach with the following components:
+Each todo item displays:
 
-### Global Variables
+- Title with status-based styling
+- Description
+- Status badge
+- Priority badge
+- Creation/update timestamps
+- Action buttons (edit, delete, complete)
 
-- `API_BASE_URL` - Base URL for API endpoints
-- DOM element references for interactive components
-- State variables for filters
+### FilterButtons Component
 
-### Initialization
+Two sets of filters:
 
-The application initializes when the DOM is loaded:
+- **Status Filters**: All, Pending, In Progress, Completed
+- **Priority Filters**: All, High, Medium, Low
 
-- Event listeners are attached
-- Initial todo list is loaded
-- Filter buttons are configured
+### EditTodoModal Component
 
-### Core Functions
+Modal dialog for editing todos with:
 
-#### Data Management
+- Controlled form inputs
+- Form validation
+- Save/Cancel functionality
+- Loading states
 
-- `loadTodos()` - Fetch todos from API
-- `renderTodos()` - Display todos in the UI
-- `showLoading()` - Show loading state
-- `showError()` - Display error messages
+### ToastNotification Component
 
-#### User Actions
+Non-intrusive notifications for:
 
-- `handleCreateTodo()` - Handle form submission for new todos
-- `openEditModal()` - Open edit modal with todo data
-- `closeEditModal()` - Close edit modal
-- `handleUpdateTodo()` - Handle form submission for updating todos
-- `updateStatus()` - Update todo status
-- `deleteTodo()` - Delete a todo
+- Success messages
+- Error messages
+- Auto-dismiss after 3 seconds
 
-#### UI Enhancements
+## State Management
 
-- `showMessage()` - Display toast notifications
-- Helper functions for formatting and styling
+The frontend manages state using React hooks:
 
-### Event Handling
+### useState Hook
 
-Event listeners are attached to:
+- Todo list data
+- Loading and error states
+- Filter states (status and priority)
+- Modal visibility and editing todo data
+- Toast notification state
 
-1. **Form Submissions**
+### useEffect Hook
 
-   - Todo creation form
-   - Todo update form
+- Initial data loading on component mount
+- Side effects management
 
-2. **Button Clicks**
+### Custom Hooks
 
-   - Refresh button
-   - Edit buttons
-   - Delete buttons
-   - Status update buttons
-   - Filter buttons
+Custom hooks can be created for:
 
-3. **Modal Interactions**
-   - Close modal button
-   - Background click to close
+- API data fetching
+- Form handling
+- Local storage persistence
 
 ## CSS Styling
 
@@ -131,11 +135,13 @@ The application uses Tailwind CSS for rapid UI development with:
 - Color palette system
 - Spacing scale
 - Flexbox and Grid layouts
+- Component classes
 
 ### Custom Styles
 
-Custom CSS in `frontend/public/css/style.css` provides:
+Custom CSS in `src/index.css` provides:
 
+- Tailwind directives (@tailwind)
 - Animations for toast messages
 - Fade-in effects for todo items
 - Responsive adjustments for mobile devices
@@ -180,16 +186,16 @@ Features:
 - Description textarea (optional)
 - Status dropdown
 - Priority dropdown
-- Submit button
+- Submit button with loading state
 
 ### Todo List Display
 
 Each todo item displays:
 
-- Title with status-based styling
+- Title with status-based styling (line-through for completed)
 - Description
-- Status badge
-- Priority badge
+- Status badge with color coding
+- Priority badge with color coding
 - Creation/update timestamps
 - Action buttons (edit, delete, complete)
 
@@ -208,7 +214,7 @@ Modal dialog for editing todos with:
 - Description textarea
 - Status dropdown
 - Priority dropdown
-- Save/Cancel buttons
+- Save/Cancel buttons with loading states
 
 ### Toast Notifications
 
@@ -217,53 +223,50 @@ Non-intrusive notifications for:
 - Success messages
 - Error messages
 - Auto-dismiss after 3 seconds
+- Slide-in animation
 
 ## API Integration
 
 The frontend communicates with the backend API through:
 
-### Fetch API
+### Axios HTTP Client
 
-Modern promise-based API for HTTP requests:
+Promise-based HTTP client with:
+
+- Request/response interceptors
+- Automatic JSON parsing
+- Error handling
+- Configurable timeouts
 
 ```javascript
-fetch("/api/todos", {
-  method: "POST",
+import axios from "axios";
+
+const apiClient = axios.create({
+  baseURL: "/api/todos",
+  timeout: 10000,
   headers: {
     "Content-Type": "application/json",
   },
-  body: JSON.stringify(data),
 });
 ```
 
-### Request Methods
+### Service Layer
 
-- `GET` - Retrieve todos
-- `POST` - Create new todo
-- `PUT` - Update existing todo
-- `PATCH` - Partial update (status)
-- `DELETE` - Remove todo
+API service layer in `src/services/todoService.js` provides:
+
+- `getAllTodos()` - Retrieve all todos
+- `getTodoById(id)` - Retrieve a specific todo
+- `createTodo(data)` - Create new todo
+- `updateTodo(id, data)` - Update existing todo
+- `updateTodoStatus(id, status)` - Partial update (status)
+- `deleteTodo(id)` - Remove todo
 
 ### Error Handling
 
 - Network error detection
 - HTTP error status handling
 - User-friendly error messages
-- Retry mechanisms
-
-## State Management
-
-The frontend maintains minimal state:
-
-- Current status filter
-- Current priority filter
-- Modal visibility state
-
-State is managed through:
-
-- Global variables
-- DOM attributes
-- CSS classes
+- Error propagation to UI
 
 ## Performance Considerations
 
@@ -275,14 +278,16 @@ State is managed through:
 
 ### Bundle Size
 
-- Minimal dependencies (only CDN libraries)
-- No build step required
-- Efficient JavaScript code
+- Tree-shaking for unused code
+- Code splitting for lazy-loaded components
+- Minified production builds
+- Efficient component re-rendering
 
 ### Caching
 
 - Browser caching of static assets
-- Potential for service worker implementation
+- React.memo for component memoization
+- useMemo for expensive calculations
 
 ## Accessibility
 
@@ -311,9 +316,9 @@ The frontend follows accessibility best practices:
 
 ### XSS Prevention
 
-- HTML escaping for user content
+- React's built-in XSS protection
+- Proper sanitization of user content
 - Content Security Policy compliance
-- Sanitization of API responses
 
 ### CSRF Protection
 
@@ -326,15 +331,17 @@ The frontend architecture allows for easy extension:
 
 ### Adding New Features
 
-1. Create new HTML elements
-2. Add corresponding JavaScript functions
+1. Create new React components
+2. Add corresponding service functions
 3. Style with Tailwind/CSS classes
+4. Integrate with existing state management
 
 ### Component Reusability
 
-- Modular JavaScript functions
+- Modular component design
 - Reusable CSS classes
 - Consistent UI patterns
+- Prop-driven customization
 
 ## Testing
 
@@ -352,9 +359,38 @@ The frontend should be tested for:
 
 Consider implementing:
 
-- Unit tests for JavaScript functions
+- Unit tests for React components
 - Integration tests for API interactions
-- Visual regression tests
+- End-to-end tests with Cypress
+- Snapshot tests for UI components
+
+## Development Workflow
+
+### Local Development
+
+1. Start the development server:
+
+   ```bash
+   npm run start:client
+   ```
+
+2. The React development server will:
+   - Automatically reload on code changes
+   - Show linting errors in the browser
+   - Provide hot module replacement
+
+### Building for Production
+
+1. Create a production build:
+
+   ```bash
+   npm run build
+   ```
+
+2. The build process will:
+   - Optimize and minify code
+   - Generate static assets
+   - Create a deployable bundle
 
 ## Deployment Considerations
 
@@ -366,8 +402,9 @@ Consider implementing:
 
 ### Performance Optimization
 
-- Minification of custom CSS/JS
+- Code splitting for faster initial loads
 - Image optimization
 - Lazy loading for non-critical resources
+- Service worker implementation for offline support
 
-This frontend architecture documentation provides a comprehensive overview of the implementation details and design decisions for the Modern TODO Application's user interface.
+This frontend architecture documentation provides a comprehensive overview of the implementation details and design decisions for the Modern TODO Application's React-based user interface.

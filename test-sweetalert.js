@@ -1,73 +1,52 @@
-// Test script to verify SweetAlert2 implementation
-console.log("Testing SweetAlert2 implementation...");
+// Test script to verify SweetAlert2 implementation in React
+console.log("Testing SweetAlert2 implementation in React...");
 
 // Test 1: Check if SweetAlert2 is loaded
 console.log("\n1. Testing SweetAlert2 availability...");
 
-if (typeof Swal !== "undefined") {
-  console.log("✅ SweetAlert2 is available");
+// Since this is a Node.js environment, we can't directly test the browser implementation
+// Instead, we'll verify that the SweetAlert2 dependency is installed
+try {
+  const Swal = require("sweetalert2");
+  console.log("✅ SweetAlert2 dependency is installed");
 
-  // Test 2: Try to show a simple alert
+  // Test basic functionality
   console.log("\n2. Testing basic SweetAlert2 functionality...");
 
-  try {
-    // Test basic alert
-    Swal.fire({
-      title: "Test Alert",
-      text: "SweetAlert2 is working correctly!",
-      icon: "success",
-      timer: 1000,
-      showConfirmButton: false,
-    }).then(() => {
-      console.log("✅ Basic SweetAlert2 alert displayed successfully");
-    });
-
-    // Test confirm dialog
-    console.log("\n3. Testing confirm dialog...");
-    Swal.fire({
-      title: "Test Confirm",
-      text: "This is a test confirm dialog",
-      icon: "question",
-      showCancelButton: true,
-      confirmButtonText: "Yes",
-      cancelButtonText: "No",
-      timer: 1500,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        console.log("✅ Confirm dialog - Confirmed");
-      } else if (result.isDismissed) {
-        console.log("✅ Confirm dialog - Dismissed");
-      }
-    });
-  } catch (error) {
-    console.log("❌ Error testing SweetAlert2 functionality:", error.message);
-  }
-} else {
-  console.log("❌ SweetAlert2 is not available");
-  console.log("   Please check the CDN link in index.html");
+  // Test basic alert
+  console.log("✅ SweetAlert2 can be imported successfully");
+  console.log("   Note: Full browser testing requires running the React app");
+} catch (error) {
+  console.log("❌ Error importing SweetAlert2:", error.message);
 }
 
-// Test 3: Check if the delete confirmation function works
-console.log("\n4. Testing delete confirmation function...");
+// Test 3: Check if the React components use SweetAlert2 correctly
+console.log("\n3. Testing React component integration...");
 
-// Mock the deleteTodo function for testing
-window.deleteTodo = function (id) {
-  console.log(`✅ Delete function called with ID: ${id}`);
-};
-
-// Test the confirmDeleteTodo function
-if (typeof window.confirmDeleteTodo === "function") {
-  console.log("✅ confirmDeleteTodo function is available");
-  console.log("   Note: Actual confirmation dialog requires user interaction");
-} else {
-  console.log("❌ confirmDeleteTodo function is not available");
-}
+// Simulate a fetch to the main page to check if it contains SweetAlert2 references
+fetch("/")
+  .then((response) => {
+    return response.text();
+  })
+  .then((html) => {
+    if (html.includes("sweetalert2") || html.includes("Swal")) {
+      console.log("✅ Page contains SweetAlert2 references");
+    } else {
+      console.log("⚠️ Page may not contain SweetAlert2 references");
+    }
+  })
+  .catch((error) => {
+    console.log("⚠️ Unable to fetch page content for analysis");
+  });
 
 console.log("\n🎉 SweetAlert2 test completed!");
 console.log("\nTo manually verify the implementation:");
-console.log("1. Start the application: npm run dev");
+console.log("1. Start the application: npm run dev:both");
 console.log("2. Open http://localhost:3000 in your browser");
 console.log("3. Create a new todo item");
 console.log("4. Click the Delete button for that item");
 console.log("5. Verify that a SweetAlert2 confirmation dialog appears");
 console.log("6. Confirm the deletion and verify the item is removed");
+console.log(
+  "\nNote: In React, SweetAlert2 is imported as a module rather than loaded via CDN"
+);

@@ -30,10 +30,10 @@ This guide explains how to set up, run, and use the Modern TODO Application.
    npm run migrate
    ```
 
-5. **Start the development server:**
+5. **Start the development servers:**
 
    ```bash
-   npm run dev
+   npm run dev:both
    ```
 
 6. **Open your browser to:**
@@ -116,19 +116,35 @@ npm run migrate
 
 ### Development Mode
 
-Start the development server with auto-reload:
+There are several ways to run the application in development mode:
 
-```bash
-npm run dev
-```
+1. **Run both servers separately** (recommended for development):
+
+   In one terminal, start the backend server:
+
+   ```bash
+   npm run dev
+   ```
+
+   In another terminal, start the React development server:
+
+   ```bash
+   npm run start:client
+   ```
+
+2. **Run both servers simultaneously**:
+   ```bash
+   npm run dev:both
+   ```
 
 The application will be available at `http://localhost:3000`
 
 ### Production Mode
 
-Start the production server:
+Build the React application and start the production server:
 
 ```bash
+npm run build
 npm start
 ```
 
@@ -275,13 +291,16 @@ todo-app/
 │   ├── routes/        # API routes
 │   ├── middleware/    # Express middleware
 │   └── config/        # Configuration files
-├── frontend/          # Client-side code
-│   ├── views/         # HTML templates
-│   ├── public/        # Static assets
-│   │   ├── css/       # Stylesheets
-│   │   ├── js/        # JavaScript files
-│   │   └── assets/    # Images, fonts, etc.
-│   └── controllers/   # Page controllers
+├── src/               # React frontend code
+│   ├── components/    # React components
+│   ├── services/      # API service layer
+│   ├── App.js         # Main application component
+│   ├── App.css        # Application styles
+│   ├── index.js       # Entry point
+│   └── index.css      # Global styles
+├── public/            # Public assets
+│   └── index.html     # HTML template
+├── build/             # Built React application
 ├── database/          # Database files
 │   └── migrations/    # Migration scripts
 ├── docs/              # Documentation

@@ -1,46 +1,68 @@
 {
-    "name": "modern-todo-app",
-    "version": "1.0.0",
-    "description": "A modern full-stack TODO application with Node.js, Express.js, MySQL, and Tailwind CSS",
-    "main": "server.js",
-    "scripts": {
-        "start": "node server.js",
-        "dev": "nodemon server.js",
-        "migrate": "knex migrate:latest",
-        "migrate:rollback": "knex migrate:rollback",
-        "migrate:make": "knex migrate:make",
-        "test": "mocha tests/**/*.test.js --timeout 10000",
-        "test:api": "mocha tests/api.test.js --timeout 10000",
-        "test:db": "node scripts/test-database.js",
-        "test:app": "node test-app.js",
-        "test:csp": "node test-csp-fix.js",
-        "test:sweetalert": "node test-sweetalert.js",
-        "setup": "node scripts/setup.js"
-    },
-    "keywords": [
-        "todo",
-        "nodejs",
-        "express",
-        "mysql",
-        "tailwindcss",
-        "crud"
+  "name": "modern-todo-app",
+  "version": "1.0.0",
+  "description": "A modern full-stack TODO application with Node.js, Express.js, MySQL, and Tailwind CSS",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "dev:both": "concurrently \"npm run dev\" \"npm run start:client\"",
+    "start:client": "react-scripts start",
+    "build": "react-scripts build",
+    "migrate": "knex migrate:latest",
+    "migrate:rollback": "knex migrate:rollback",
+    "migrate:make": "knex migrate:make",
+    "test": "mocha tests/**/*.test.js --timeout 10000",
+    "test:api": "mocha tests/api.test.js --timeout 10000",
+    "test:db": "node scripts/test-database.js",
+    "test:app": "node test-app.js",
+    "test:csp": "node test-csp-fix.js",
+    "test:sweetalert": "node test-sweetalert.js",
+    "setup": "node scripts/setup.js"
+  },
+  "keywords": [
+    "todo",
+    "nodejs",
+    "express",
+    "mysql",
+    "tailwindcss",
+    "crud"
+  ],
+  "author": "Modern Todo App Team",
+  "license": "MIT",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^7.0.1",
+    "axios": "^1.11.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "helmet": "^7.0.0",
+    "knex": "^2.4.2",
+    "morgan": "^1.10.0",
+    "mysql2": "^3.6.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-scripts": "^5.0.1",
+    "sweetalert2": "^11.23.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.8",
+    "chai-http": "^4.4.0",
+    "concurrently": "^9.2.1",
+    "mocha": "^10.2.0",
+    "nodemon": "^3.0.1",
+    "tailwindcss": "^3.3.3"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
     ],
-    "author": "Modern Todo App Team",
-    "license": "MIT",
-    "dependencies": {
-        "express": "^4.18.2",
-        "mysql2": "^3.6.0",
-        "knex": "^2.4.2",
-        "dotenv": "^16.3.1",
-        "cors": "^2.8.5",
-        "helmet": "^7.0.0",
-        "morgan": "^1.10.0"
-    },
-    "devDependencies": {
-        "nodemon": "^3.0.1",
-        "tailwindcss": "^3.3.3",
-        "chai": "^4.3.8",
-        "chai-http": "^4.4.0",
-        "mocha": "^10.2.0"
-    }
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }

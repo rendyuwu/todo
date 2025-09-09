@@ -84,6 +84,28 @@ NODE_ENV=staging npm run migrate
 NODE_ENV=production npm run migrate
 ```
 
+## Frontend Build Process
+
+### Building the React Application
+
+Before deploying, you need to build the React frontend:
+
+```bash
+npm run build
+```
+
+This command will:
+
+- Compile React components
+- Optimize and minify JavaScript and CSS
+- Generate static assets in the `build/` directory
+- Create a production-ready bundle
+
+### Development vs Production
+
+- **Development**: Uses the React development server with hot reloading
+- **Production**: Serves the pre-built static assets from the `build/` directory
+
 ## Deployment Steps
 
 ### Local Development Deployment
@@ -115,8 +137,20 @@ NODE_ENV=production npm run migrate
    ```
 
 5. Start the development server:
+
    ```bash
    npm run dev
+   ```
+
+6. In a separate terminal, start the React development server:
+
+   ```bash
+   npm run start:client
+   ```
+
+7. Or start both servers simultaneously:
+   ```bash
+   npm run dev:both
    ```
 
 ### Staging Deployment
@@ -147,7 +181,13 @@ NODE_ENV=production npm run migrate
    NODE_ENV=staging npm run migrate
    ```
 
-5. Start the server:
+5. Build the React application:
+
+   ```bash
+   npm run build
+   ```
+
+6. Start the server:
    ```bash
    NODE_ENV=staging npm start
    ```
@@ -180,7 +220,13 @@ NODE_ENV=production npm run migrate
    NODE_ENV=production npm run migrate
    ```
 
-5. Start the server:
+5. Build the React application:
+
+   ```bash
+   npm run build
+   ```
+
+6. Start the server:
    ```bash
    NODE_ENV=production npm start
    ```

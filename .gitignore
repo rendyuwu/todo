@@ -117,3 +117,11 @@ public/static/
 .idea/
 *.swp
 *.swo
+
+# React build directory
+build/
+
+# React development server logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

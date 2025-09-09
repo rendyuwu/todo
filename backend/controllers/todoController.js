@@ -133,7 +133,7 @@ async function createTodo(req, res) {
 async function updateTodo(req, res) {
   try {
     const { id } = req.params;
-    const { title, description, status } = req.body;
+    const { title, description, status, priority } = req.body;
 
     // Validate ID is a number
     if (!id || isNaN(id)) {
@@ -172,11 +172,21 @@ async function updateTodo(req, res) {
       });
     }
 
+    // Validate priority if provided
+    if (priority && !["low", "medium", "high"].includes(priority)) {
+      return res.status(400).json({
+        success: false,
+        error: "Validation error",
+        message: "Priority must be one of: low, medium, high",
+      });
+    }
+
     const todoData = {};
     if (title !== undefined) todoData.title = title.trim();
     if (description !== undefined)
       todoData.description = description ? description.trim() : null;
     if (status !== undefined) todoData.status = status;
+    if (priority !== undefined) todoData.priority = priority;
 
     const updatedTodo = await Todo.update(id, todoData);
 

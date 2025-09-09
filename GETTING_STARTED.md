@@ -71,19 +71,35 @@ npm run migrate
 
 ### Development Mode
 
-Start the development server with auto-reload:
+There are several ways to run the application in development mode:
 
-```bash
-npm run dev
-```
+1. **Run both servers separately** (recommended for development):
+
+   In one terminal, start the backend server:
+
+   ```bash
+   npm run dev
+   ```
+
+   In another terminal, start the React development server:
+
+   ```bash
+   npm run start:client
+   ```
+
+2. **Run both servers simultaneously**:
+   ```bash
+   npm run dev:both
+   ```
 
 The application will be available at: http://localhost:3000
 
 ### Production Mode
 
-Start the production server:
+Build the React application and start the production server:
 
 ```bash
+npm run build
 npm start
 ```
 
@@ -172,13 +188,16 @@ todo-app/
 │   ├── routes/        # API routes
 │   ├── middleware/    # Express middleware
 │   └── config/        # Configuration files
-├── frontend/          # Client-side code
-│   ├── views/         # HTML templates
-│   ├── public/        # Static assets
-│   │   ├── css/       # Stylesheets
-│   │   ├── js/        # JavaScript files
-│   │   └── assets/    # Images, fonts, etc.
-│   └── controllers/   # Page controllers
+├── src/               # React frontend code
+│   ├── components/    # React components
+│   ├── services/      # API service layer
+│   ├── App.js         # Main application component
+│   ├── App.css        # Application styles
+│   ├── index.js       # Entry point
+│   └── index.css      # Global styles
+├── public/            # Public assets
+│   └── index.html     # HTML template
+├── build/             # Built React application
 ├── database/          # Database files
 │   └── migrations/    # Migration scripts
 ├── docs/              # Documentation
@@ -192,6 +211,47 @@ todo-app/
 ├── server.js          # Main server file
 └── README.md          # Project overview
 ```
+
+## Development Workflow
+
+### Frontend Development
+
+1. Start the React development server:
+
+   ```bash
+   npm run start:client
+   ```
+
+2. The development server will:
+   - Automatically reload on code changes
+   - Show linting errors in the browser
+   - Provide hot module replacement
+
+### Backend Development
+
+1. Start the backend development server:
+
+   ```bash
+   npm run dev
+   ```
+
+2. The server will:
+   - Automatically restart on code changes
+   - Log requests and errors
+   - Serve the API endpoints
+
+### Full Development Environment
+
+1. Start both servers:
+
+   ```bash
+   npm run dev:both
+   ```
+
+2. This will:
+   - Run the backend server on port 3000
+   - Run the React development server on port 3000 (with proxy to backend)
+   - Automatically open the browser
 
 ## Next Steps
 

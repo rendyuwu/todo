@@ -84,8 +84,11 @@ dist
 
 # Gatsby files
 .cache/
-public/*/
-public/*.html
+# Allow public HTML files except for build artifacts
+public/
+!public/index.html
+!public/css/
+!public/js/
 public/page-data/
 public/static/
 
